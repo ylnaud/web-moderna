@@ -3,11 +3,12 @@
   "version": "1.0.0",
   "description": "template base",
   "main": ".eleventy.js",
+  "type": "module",
   "scripts": {
     "install": "npm install @11ty/eleventy@3.0.0 --save-dev",
     "start": "npx @11ty/eleventy@3.0.0 --serve --port=7777",
     "clean": "rm -rf docs",
-    "deploy": "npx @11ty/eleventy@3.0. --pathprefix=/",
+    "deploy": "npx @11ty/eleventy@3.0.0 --pathprefix=/",
     "deploy-subdomain": "npx @11ty/eleventy@3.0.0 --pathprefix=/subdirectory/"
   },
   "repository": {
@@ -27,6 +28,7 @@
     "@11ty/eleventy": "^3.0.0"
   },
   "dependencies": {
+    "@11ty/eleventy-fetch": "^5.0.2",
     "@11ty/eleventy-img": "^6.0.1",
     "clean-css": "^5.3.3",
     "html-minifier-terser": "^7.2.0",
