@@ -8,6 +8,7 @@
     <meta
     name="description" content="{{ descripcion }}"/> <!-- capture the CSS content as a Nunjucks variable -->
     {% set css %}
+    {% include "normalize.css" %}
     {% include "styles.css" %}
     {% endset %}
     <!-- feed it through our cssmin filter to minify -->
@@ -16,7 +17,7 @@
   </head>
   <body>
     <article>
-      <header>{% include "nav.njk" %}</header>
+      <header>{% include "menu.njk" %}</header>
       <main class="container">{{ content | safe }}</main>
       <aside>
         <h2>Categorías</h2>

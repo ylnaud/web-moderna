@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>{{ title }}</title>
     <link rel="icon" href="/img/logo.png"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <meta name="description" content="{{ descripcion }}"/> {% set css %}
-    {% include "normalize.css" %}
     {% include "styles.css" %}
     {% endset %}
     <!-- feed it through our cssmin filter to minify -->
@@ -14,9 +16,11 @@
       {{css | cssmin | safe}}</style>
   </head>
   <body>
-    <header>{% include "nav.njk" %}</header>
-    <main class="container">{{ content | safe }}</main>
-    {% include "footer.njk" %}
+    <section class="container">
+      {% include "menu.njk" %}
+    </section>
+    <main>{{ content | safe }}</main>
+    {# {% include "footer.njk" %} #}
     <script type="module" src="js/index.js"></script>
   </body>
 </html>

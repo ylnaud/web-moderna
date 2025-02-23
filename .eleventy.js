@@ -1,15 +1,40 @@
+const fs = require("fs").promises;
+const path = require("path");
 const htmlmin = require("html-minifier-terser");
 const CleanCSS = require("clean-css");
 const terser = require("terser");
 const { EleventyHtmlBasePlugin } = require("@11ty/eleventy");
-const { eleventyImageTransformPlugin } = require("@11ty/eleventy-img"); // ✅ CORREGIDO
+const { eleventyImageTransformPlugin } = require("@11ty/eleventy-img");
 
 module.exports = function (eleventyConfig) {
   // Archivos a copiar directamente
   eleventyConfig.addPassthroughCopy("code/css");
   eleventyConfig.addPassthroughCopy("code/js");
   eleventyConfig.addPassthroughCopy("code/img");
+  eleventyConfig.addPassthroughCopy("code/svg");
 
+  // svg passthrough
+  eleventyConfig.addNunjucksAsyncShortcode(
+    "svgIcon",
+    async (src, className = "") => {
+      try {
+        const filePath = path.join(__dirname, "code/svg", src);
+        //console.log(`Reading SVG file from: ${filePath}`);
+
+        let svgContent = await fs.readFile(filePath, "utf-8");
+        //console.log(`Original SVG content:\n${svgContent}`);
+
+        // Agregar la clase al elemento SVG
+        svgContent = svgContent.replace("<svg", `<svg class="${className}"`);
+        //console.log(`Modified SVG content:\n${svgContent}`);
+
+        return svgContent;
+      } catch (error) {
+        console.error(`Error reading SVG file ${src}:`, error);
+        return "";
+      }
+    }
+  );
   // HTML minify
   eleventyConfig.addTransform("htmlmin", function (content) {
     if ((this.page.outputPath || "").endsWith(".html")) {
@@ -23,7 +48,7 @@ module.exports = function (eleventyConfig) {
     return content;
   });
 
-  // Plugins (Ahora correctamente importados)
+  // Plugins
   eleventyConfig.addPlugin(EleventyHtmlBasePlugin);
   eleventyConfig.addPlugin(eleventyImageTransformPlugin, {
     formats: ["webp"],
@@ -32,7 +57,7 @@ module.exports = function (eleventyConfig) {
       imgAttributes: {
         decoding: "async",
         loading: "lazy",
-        width: "200",
+        width: "auto",
         height: "auto",
       },
       pictureAttributes: { class: "picture miguel" },

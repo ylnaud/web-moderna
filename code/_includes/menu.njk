@@ -1,0 +1,29 @@
+<header class="hero">
+  <nav class="nav">
+    <a href="/" class="nav__logo-link">
+      {% svgIcon 'logo.svg' , 'nav__logo' %}
+    </a>
+    <input type="checkbox" id="menu-toggle" class="menu-toggle">
+      <label for="menu-toggle" class="nav__label"></label>
+      <ul class="nav__list">
+        {% for link in navigation %}
+          <li class="nav__item">
+            <a href="{{ link.url }}" class="nav__link {{ link.class }}{% if link.isCTA %} nav__link--cta{% endif %}">
+              {{ link.label }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </nav>
+    <section class="hero__main">
+      <h1 class="hero__title">Transforma Tu Vision en Realidad Digital</h1>
+      <figure class="hero__figure">
+        {% svgIcon 'header-img.svg' , 'hero__img' %}
+      </figure>
+      <p class="hero__paragraph">
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Minima aliquid velit cum perferendis nisi tempora in qui eum
+        dicta, eius, modi accusamus a quas autem quasi aut sequi nobis. Provident.
+      </p>
+      <a class="hero__cta" href="#">Agenda una cita</a>
+    </section>
+  </header>
