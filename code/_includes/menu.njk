@@ -2,13 +2,14 @@
   <nav class="nav">
     <a href="/" class="nav__logo-link">
       {% svgIcon 'logo.svg' , 'nav__logo' %}
+      <span class="sr-only">Ir a la página de inicio</span>
     </a>
     <input type="checkbox" id="menu-toggle" class="menu-toggle">
       <label for="menu-toggle" class="nav__label"></label>
       <ul class="nav__list">
         {% for link in navigation %}
           <li class="nav__item">
-            <a href="{{ link.url }}" class="nav__link {{ link.class }}{% if link.isCTA %} nav__link--cta{% endif %}">
+            <a href="{{ link.url }}" class="{{ link.class }}{% if link.isCTA %} nav__link--cta{% endif %}">
               {{ link.label }}
             </a>
           </li>

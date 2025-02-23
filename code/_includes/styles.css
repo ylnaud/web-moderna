@@ -17,7 +17,7 @@ body,
 input,
 textarea,
 button {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Host Grotesk", sans-serif;
 }
 
 .container {
@@ -175,4 +175,97 @@ Hero
     position: static;
     grid-auto-flow: column;
   }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/* Estilos para el enlace de salto */
+#skip {
+  position: relative;
+}
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.skip-link:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  color: #000;
+  background-color: #ffc;
+  border: 1px solid #990000;
+  padding: 3px;
+  z-index: 100;
+}
+
+/* Estilos para los elementos de navegación */
+.nav__item {
+  list-style: none;
+  /* Elimina los puntos o números de la lista */
+  margin: 0;
+  /* Elimina el margen predeterminado */
+  padding: 0;
+  /* Elimina el relleno predeterminado */
+  display: flex;
+  /* Hace que los elementos hijos sean flexibles */
+  align-items: center;
+  /* Alinea los elementos hijos verticalmente al centro */
+  height: 100%;
+  /* Asegura que el elemento ocupe toda la altura del contenedor padre */
+}
+
+.nav__link {
+  text-decoration: none;
+  /* Elimina el subrayado de los enlaces */
+  color: inherit;
+  /* Hereda el color del texto del padre */
+  padding: 0.5rem 1rem;
+  /* Añade un poco de espacio interno para mejorar la apariencia */
+}
+
+.nav__link:hover {
+  background-color: var(--gray-color);
+  /* Cambia el color de fondo al pasar el ratón */
+  border-radius: 5px;
+  /* Añade bordes redondeados */
+}
+
+.nav__link--cta {
+  border: 1px solid #000;
+  border-radius: 10px;
+  padding-left: 1.8rem;
+  padding-right: 1.8rem;
+  text-decoration: underline;
+}
+
+.nav__item a {
+  text-decoration: none;
+  /* Elimina el subrayado de los enlaces */
+  color: inherit;
+  /* Hereda el color del texto del padre */
+  padding: 0.5rem 1rem;
+  /* Añade un poco de espacio interno para mejorar la apariencia */
+}
+
+.nav__item a:hover {
+  background-color: var(--gray-color);
+  /* Cambia el color de fondo al pasar el ratón */
+  border-radius: 5px;
+  /* Añade bordes redondeados */
 }

@@ -2,15 +2,31 @@
   {
     "url": "/#sobre-nosotros",
     "label": "Sobre Nosotros",
-    "class": "nav__link"
+    "class": "nav__link",
+    "isCTA": false
   },
-  { "url": "/#servicios", "label": "Servicios", "class": "nav__link" },
-  { "url": "/#faq", "label": "FAQ", "class": "nav__link" },
-  { "url": "/#newsletter", "label": "Newsletter", "class": "nav__link" },
+  {
+    "url": "/#servicios",
+    "label": "Servicios",
+    "class": "nav__link",
+    "isCTA": false
+  },
+  {
+    "url": "/#faq",
+    "label": "Preguntas Frecuentes",
+    "class": "nav__link",
+    "isCTA": false
+  },
+  {
+    "url": "/#newsletter",
+    "label": "Boletín Informativo",
+    "class": "nav__link",
+    "isCTA": false
+  },
   {
     "url": "/#contacto",
     "label": "Contacto",
-    "class": "nav__link--cta",
+    "class": "nav__link nav__link--cta",
     "isCTA": true
   }
 ]

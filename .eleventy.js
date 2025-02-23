@@ -1,3 +1,4 @@
+import { createInlineCss } from "google-fonts-inline";
 import { promises as fs } from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -16,6 +17,17 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("code/js");
   eleventyConfig.addPassthroughCopy("code/img");
   eleventyConfig.addPassthroughCopy("code/svg");
+
+  // Crear un shortcode para generar CSS en línea de Google Fonts
+  eleventyConfig.addShortcode("googleFontsInline", async function (url) {
+    try {
+      const css = await createInlineCss(url);
+      return css;
+    } catch (error) {
+      console.error("Error al generar el CSS en línea:", error);
+      return "";
+    }
+  });
 
   // svg passthrough
   eleventyConfig.addNunjucksAsyncShortcode(
@@ -47,6 +59,7 @@ export default function (eleventyConfig) {
   });
 
   // Plugins
+
   eleventyConfig.addPlugin(EleventyHtmlBasePlugin);
   eleventyConfig.addPlugin(eleventyImageTransformPlugin, {
     formats: ["webp"],
