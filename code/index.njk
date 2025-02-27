@@ -2,5 +2,112 @@
 layout: layouts/base.njk
 title: "title home"
 descripcion: Explorando el conocimiento, compartiendo ideas y proyectos.
+tags:
+  - Hola
 ---
 
+<section class="services">
+  <h2 class="title title__highlight">Services</h2>
+  <p class="paragraph">
+    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Hic, voluptates esse nobis laborum nam eos explicabo placeat
+    rerum reiciendis a ad cupiditate ut incidunt aliquam quo, molestiae reprehenderit nostrum debitis!
+  </p>
+  <section class="services__container">
+    <article class="services__article services__article--gray">
+      <h3 class="services__title">
+        <span class="services__span">
+          Search engine
+        </span>
+        <span class="services__span">
+          optimization
+        </span>
+      </h3>
+      <div class="services__content">
+        <a class="services__link" href="#">
+          {% svgIcon 'arrow.svg' , 'services__arrow', 'Esto es un icono', 'Descripción del icono para dar click' %}
+        </a>
+        {% svgIcon 'seo-illustration.svg' , 'services__img', 'Este es el título seo illustration', 'seo illustration ' %}
+      </div>
+    </article>
+    <article class="services__article services__article--yellow">
+      <h3 class="services__title">
+        <span class="services__span">
+          campaña de
+        </span>
+        <span class="services__span">
+          publicidad
+        </span>
+      </h3>
+      <div class="services__content">
+        <a class="services__link" href="#">
+          {% svgIcon 'payment.svg' , 'services__arrow', 'Esto es un icono', 'Descripción del icono para dar click' %}
+        </a>
+        {% svgIcon 'seo-illustration.svg' , 'services__img', 'Este es el título seo illustration', 'seo illustration ' %}
+      </div>
+    </article>
+    <article class="services__article services__article--black">
+      <h3 class="services__title">
+        <span class="services__span">
+          Marketing de
+        </span>
+        <span class="services__span">
+          Contenidos
+        </span>
+      </h3>
+      <div class="services__content">
+        <a class="services__link" href="#">
+          {% svgIcon 'arrow-black.svg' , 'services__arrow', 'Esto es un icono', 'Descripción del icono para dar click' %}
+        </a>
+        {% svgIcon 'content-mkt.svg' , 'services__img','svg contenido marketing digital', 'eEste es mi svg contenido marketing digital ' %}
+      </div>
+    </article>
+    <article class="services__article services__article--gray">
+      <h3 class="services__title">
+        <span class="services__span">
+          Search engine
+        </span>
+        <span class="services__span">
+          optimization
+        </span>
+      </h3>
+      <div class="services__content">
+        <a class="services__link" href="#">
+          {% svgIcon 'arrow.svg' , 'services__arrow', 'Esto es un icono', 'Descripción del icono para dar click' %}
+        </a>
+        {% svgIcon 'seo-illustration.svg' , 'services__img', 'Este es el título seo illustration', 'seo illustration ' %}
+      </div>
+    </article>
+    <article class="services__article services__article--black">
+      <h3 class="services__title">
+        <span class="services__span">
+          campaña de
+        </span>
+        <span class="services__span">
+          publicidad
+        </span>
+      </h3>
+      <div class="services__content">
+        <a class="services__link" href="#">
+          {% svgIcon 'payment.svg' , 'services__arrow', 'Esto es un icono', 'Descripción del icono para dar click' %}
+        </a>
+        {% svgIcon 'seo-illustration.svg' , 'services__img', 'Este es el título seo illustration', 'seo illustration ' %}
+      </div>
+    </article>
+    <article class="services__article services__article--gray">
+      <h3 class="services__title">
+        <span class="services__span">
+          Marketing de
+        </span>
+        <span class="services__span">
+          Contenidos
+        </span>
+      </h3>
+      <div class="services__content">
+        <a class="services__link" href="#">
+          {% svgIcon 'arrow-black.svg' , 'services__arrow', 'Esto es un icono', 'Descripción del icono para dar click' %}
+        </a>
+        {% svgIcon 'content-mkt.svg' , 'services__img','svg contenido marketing digital', 'eEste es mi svg contenido marketing digital ' %}
+      </div>
+    </article>
+  </section>
+</section>

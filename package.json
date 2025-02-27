@@ -6,10 +6,11 @@
   "type": "module",
   "scripts": {
     "install": "npm install @11ty/eleventy@3.0.0 --save-dev",
-    "start": "npx @11ty/eleventy@3.0.0 --serve --port=7777",
+    "start": "npx @11ty/eleventy@3.0.0 --serve --port=7799",
+    "build": "npx @11ty/eleventy@3.0.0",
     "clean": "rm -rf docs",
-    "deploy": "npx @11ty/eleventy@3.0.0 --pathprefix=/",
-    "deploy-subdomain": "npx @11ty/eleventy@3.0.0 --pathprefix=/subdirectory/"
+    "deploy": "npm run build && echo 'Desplegado en la raíz'",
+    "deploy-subdomain": "npx @11ty/eleventy@3.0.0 --pathprefix=/subdirectory/ && echo 'Desplegado en subdirectorio'"
   },
   "repository": {
     "type": "git",
@@ -26,13 +27,13 @@
   "homepage": "https://github.com/ylnaud/base-project#readme",
   "devDependencies": {
     "@11ty/eleventy": "^3.0.0",
-    "google-fonts-inline": "^1.0.1"
+    "clean-css": "^5.3.3",
+    "google-fonts-inline": "^1.0.1",
+    "html-minifier-terser": "^7.2.0",
+    "terser": "^5.39.0"
   },
   "dependencies": {
     "@11ty/eleventy-fetch": "^5.0.2",
-    "@11ty/eleventy-img": "^6.0.1",
-    "clean-css": "^5.3.3",
-    "html-minifier-terser": "^7.2.0",
-    "terser": "^5.39.0"
+    "@11ty/eleventy-img": "^6.0.1"
   }
 }

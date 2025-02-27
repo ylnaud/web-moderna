@@ -1,14 +1,16 @@
-<!doctype html>
-<html lang="es">
+<!DOCTYPE html>
+<html lang="en">
   <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>{{ title }}</title>
     <link rel="icon" href="/img/logo.png"/>
-    {% googleFontsInline 'https://fonts.googleapis.com/css?family=Host+Grotesk:400&display=swap' %} <link rel="stylesheet" href="css/normalize.css"/>
+    {% googleFontsInline 'https://fonts.googleapis.com/css?family=Host+Grotesk:400&display=swap' %}
     <meta name="description" content="{{ descripcion }}"/> {% set css %}
     {% include "styles.css" %}
-    {% endset %}
+    {% endset %} <link rel="stylesheet" href="css/normalize.css"/>
+    <link
+    rel="stylesheet" href="css/critico.css"/>
     <!-- feed it through our cssmin filter to minify -->
     <style>
       {{css | cssmin | safe}}</style>
@@ -20,7 +22,7 @@
     <section class="container">
       {% include "layouts/ui/menu.njk" %}
     </section>
-    <main id="content" class="main">{{ content | safe }}</main>
+    <main id="content">{{ content | safe }}</main>
     {# {% include "footer.njk" %} #}
     <!-- feed it through our jsmin filter to minify -->
     {% set js %}

@@ -18,6 +18,12 @@
     "isCTA": false
   },
   {
+    "url": "/blog",
+    "label": "blog",
+    "class": "nav__link",
+    "isCTA": false
+  },
+  {
     "url": "/#newsletter",
     "label": "Boletín Informativo",
     "class": "nav__link",

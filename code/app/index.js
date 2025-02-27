@@ -1,4 +1,8 @@
-document.addEventListener("DOMContentLoaded", (event) => {
+import App from "./App.js";
+
+document.addEventListener("DOMContentLoaded", () => App());
+
+/* document.addEventListener("DOMContentLoaded", (event) => {
   console.log("DOM fully loaded and parsed");
 
   const handleSubmit = (event) => {
@@ -48,3 +52,4 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
   document.querySelector("form").addEventListener("submit", handleSubmit);
 });
+ */

@@ -14,9 +14,25 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export default function (eleventyConfig) {
   // Archivos a copiar directamente
   eleventyConfig.addPassthroughCopy("code/css");
-  eleventyConfig.addPassthroughCopy("code/js");
+
+  eleventyConfig.addPassthroughCopy("code/app");
   eleventyConfig.addPassthroughCopy("code/img");
   eleventyConfig.addPassthroughCopy("code/svg");
+
+  // Crear una colección de etiquetas
+  eleventyConfig.addCollection("tags", function (collectionApi) {
+    let tagsObj = {};
+    collectionApi.getAll().forEach((item) => {
+      if (!item.data.tags) return;
+      item.data.tags.forEach((tag) => {
+        if (!tagsObj[tag]) {
+          tagsObj[tag] = [];
+        }
+        tagsObj[tag].push(item);
+      });
+    });
+    return tagsObj;
+  });
 
   // Crear un shortcode para generar CSS en línea de Google Fonts
   eleventyConfig.addShortcode("googleFontsInline", async function (url) {
@@ -32,14 +48,44 @@ export default function (eleventyConfig) {
   // svg passthrough
   eleventyConfig.addNunjucksAsyncShortcode(
     "svgIcon",
-    async (src, className = "") => {
+    async (src, className = "", title = "", desc = "") => {
       try {
         const filePath = path.join(__dirname, "code/svg", src);
         let svgContent = await fs.readFile(filePath, "utf-8");
-        svgContent = svgContent.replace("<svg", `<svg class="${className}"`);
+
+        // Generar ID único basado en el nombre del archivo
+        const idBase = src.replace(".svg", "").replace(/\W+/g, "-");
+
+        // Crear el bloque de metadatos SEO
+        const seoMetadata = `
+          <title id="${idBase}-title">${title}</title>
+          <desc id="${idBase}-desc">${desc}</desc>
+        `;
+
+        // Buscar la etiqueta de apertura <svg
+        const svgTagMatch = svgContent.match(/<svg[^>]*>/);
+        if (!svgTagMatch) throw new Error("No se encontró la etiqueta <svg>");
+
+        const svgTag = svgTagMatch[0];
+
+        // Modificar la etiqueta <svg> agregando los atributos SEO
+        const modifiedSvgTag = svgTag.replace(
+          "<svg",
+          `<svg class="${className}" role="img" aria-labelledby="${idBase}-title ${idBase}-desc"`
+        );
+
+        // Reemplazar la etiqueta <svg> en el contenido con la modificada
+        svgContent = svgContent.replace(svgTag, modifiedSvgTag);
+
+        // Insertar title y desc inmediatamente después de la apertura de <svg>
+        svgContent = svgContent.replace(
+          modifiedSvgTag,
+          `${modifiedSvgTag}${seoMetadata}`
+        );
+
         return svgContent;
       } catch (error) {
-        console.error(`Error reading SVG file ${src}:`, error);
+        console.error(`Error leyendo el SVG ${src}:`, error);
         return "";
       }
     }
@@ -52,6 +98,8 @@ export default function (eleventyConfig) {
         useShortDoctype: true,
         removeComments: true,
         collapseWhitespace: true,
+        minifyCSS: true,
+        minifyJS: true,
       });
       return minified;
     }
@@ -62,7 +110,7 @@ export default function (eleventyConfig) {
 
   eleventyConfig.addPlugin(EleventyHtmlBasePlugin);
   eleventyConfig.addPlugin(eleventyImageTransformPlugin, {
-    formats: ["webp"],
+    formats: ["webp", "avif"],
     widths: ["auto"],
     htmlOptions: {
       imgAttributes: {
@@ -73,6 +121,18 @@ export default function (eleventyConfig) {
       },
       pictureAttributes: { class: "picture miguel" },
     },
+  });
+
+  eleventyConfig.addFilter("slugify", function (str, maxLength = 50) {
+    return str
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^\w\s-]/g, "")
+      .replace(/[\s_-]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .substring(0, maxLength) // Limita la longitud
+      .replace(/-+$/, ""); // Elimina guiones al final después de truncar
   });
 
   // Filtros para minificar CSS y JS
