@@ -15,6 +15,7 @@ function closeMenu() {
   // Añadir evento a cada enlace
   navLinks.forEach((link) => {
     link.addEventListener("click", (e) => {
+      //e.preventDefault()
       // Prevenir comportamiento por defecto solo para anclas
       if (link.getAttribute("href").startsWith("#")) {
         e.preventDefault();
