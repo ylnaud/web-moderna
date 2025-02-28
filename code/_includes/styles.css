@@ -14,6 +14,11 @@
   --padding-container: 80px 0;
 }
 
+html {
+
+  scroll-behavior: smooth;
+}
+
 body,
 input,
 textarea,
@@ -73,6 +78,11 @@ Hero
 .menu-toggle:checked~.nav__list {
   --transform-list-menu: translateX(0);
   /* Mostrar el menú */
+}
+
+.nav__list {
+  transition: transform 0.3s ease-in-out;
+  /* Transición más suave */
 }
 
 .nav__list {
@@ -287,6 +297,8 @@ Hero
   }
 
   .hero__paragraph {
+    padding: 1.5rem;
+
     grid-area: parrafo;
   }
 

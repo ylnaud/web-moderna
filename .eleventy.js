@@ -45,7 +45,6 @@ export default function (eleventyConfig) {
     }
   });
 
-  // svg passthrough
   eleventyConfig.addNunjucksAsyncShortcode(
     "svgIcon",
     async (src, className = "", title = "", desc = "") => {
@@ -56,32 +55,18 @@ export default function (eleventyConfig) {
         // Generar ID único basado en el nombre del archivo
         const idBase = src.replace(".svg", "").replace(/\W+/g, "-");
 
-        // Crear el bloque de metadatos SEO
-        const seoMetadata = `
-          <title id="${idBase}-title">${title}</title>
-          <desc id="${idBase}-desc">${desc}</desc>
-        `;
-
-        // Buscar la etiqueta de apertura <svg
-        const svgTagMatch = svgContent.match(/<svg[^>]*>/);
-        if (!svgTagMatch) throw new Error("No se encontró la etiqueta <svg>");
-
-        const svgTag = svgTagMatch[0];
-
-        // Modificar la etiqueta <svg> agregando los atributos SEO
-        const modifiedSvgTag = svgTag.replace(
-          "<svg",
-          `<svg class="${className}" role="img" aria-labelledby="${idBase}-title ${idBase}-desc"`
-        );
-
-        // Reemplazar la etiqueta <svg> en el contenido con la modificada
-        svgContent = svgContent.replace(svgTag, modifiedSvgTag);
-
-        // Insertar title y desc inmediatamente después de la apertura de <svg>
+        // Agregar atributos SEO
         svgContent = svgContent.replace(
-          modifiedSvgTag,
-          `${modifiedSvgTag}${seoMetadata}`
+          /<svg([^>]*)>/,
+          `<svg class="${className}" role="img" aria-labelledby="${idBase}-title ${idBase}-desc" $1>`
         );
+
+        // Insertar title y desc dentro del SVG
+        const seoMetadata = `
+        <title id="${idBase}-title">${title}</title>
+        <desc id="${idBase}-desc">${desc}</desc>
+      `;
+        svgContent = svgContent.replace("</svg>", `${seoMetadata}</svg>`);
 
         return svgContent;
       } catch (error) {
@@ -90,6 +75,43 @@ export default function (eleventyConfig) {
       }
     }
   );
+
+  eleventyConfig.addNunjucksAsyncShortcode("svgSprite", async () => {
+    try {
+      const svgDir = path.join(__dirname, "code/svg");
+      const files = await fs.readdir(svgDir);
+      let spriteContent = `<svg style="display: none;" xmlns="http://www.w3.org/2000/svg">`;
+
+      for (const file of files) {
+        if (file.endsWith(".svg")) {
+          let svg = await fs.readFile(path.join(svgDir, file), "utf-8");
+          const id = file.replace(".svg", "").replace(/\W+/g, "-");
+
+          // Extraer viewBox y contenido sin <svg>
+          const viewBoxMatch = svg.match(/viewBox="([^"]+)"/);
+          const viewBox = viewBoxMatch ? viewBoxMatch[1] : "0 0 24 24";
+          svg = svg.replace(/<svg[^>]*>/, "").replace(/<\/svg>/, "");
+
+          // Agregar title y desc para SEO
+          const title = `Title for ${id}`; // Personaliza esto según tus necesidades
+          const desc = `Description for ${id}`; // Personaliza esto según tus necesidades
+
+          spriteContent += `
+          <symbol id="${id}" viewBox="${viewBox}" role="img" aria-labelledby="${id}-title ${id}-desc">
+            <title id="${id}-title">${title}</title>
+            <desc id="${id}-desc">${desc}</desc>
+            ${svg}
+          </symbol>`;
+        }
+      }
+
+      spriteContent += `</svg>`;
+      return spriteContent;
+    } catch (error) {
+      console.error("Error generando sprite de SVG:", error);
+      return "";
+    }
+  });
 
   // HTML minify
   eleventyConfig.addTransform("htmlmin", function (content) {
