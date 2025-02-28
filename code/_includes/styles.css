@@ -2,6 +2,7 @@
 ::before,
 ::after {
   margin: 0;
+  padding: 0;
   box-sizing: border-box;
 
 }
@@ -25,7 +26,7 @@ button {
   /* Establecer el ancho al 90% del contenedor padre */
   margin: 0 auto;
   /* Centrar el contenedor */
-  overflow: hidden;
+  max-width: 1200px;
 }
 
 /* PC*/
@@ -178,18 +179,19 @@ Hero
 .paragraph {
   margin-top: 1.5rem;
   line-height: 2;
+  padding: 1.5rem;
 }
 
 .services__container {
-
-
   width: min(90%, 1200px);
   /* No más grande que 1200px, pero se adapta */
+  /* No supera 450px */
+
   display: flex;
   flex-wrap: wrap;
   /* Permite que los elementos bajen de línea */
   justify-content: center;
-  align-items: center;
+  margin: 0 auto;
   gap: 2rem;
   /* Asegurar que el padre no limite el ancho */
   margin-top: 3rem;
@@ -202,13 +204,7 @@ Hero
 }
 
 .services__article {
-
-  width: 95%;
-  /* Toma la mitad del contenedor */
-  max-width: 450px;
-  /* No baja de 380px */
-  min-width: 280px;
-  /* No supera 450px */
+  width: clamp(280px, 90%, 450px);
   justify-content: center;
   place-items: center;
   place-content: center;
@@ -234,6 +230,9 @@ Hero
 }
 
 .services__arrow {
+  max-width: 100%;
+  height: auto;
+
   fill: currentColor;
   /* Hace que el icono tome el color del texto */
 }
@@ -256,6 +255,7 @@ Hero
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+  overflow: hidden;
 }
 
 .services__link {
