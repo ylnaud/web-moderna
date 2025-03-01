@@ -10,6 +10,7 @@ npm install
 npm start
 
 ```
+```
 base-project/
 ├── code/ # Código fuente (entrada)
 │ ├── includes/ # Archivos reutilizables
